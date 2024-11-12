@@ -44,6 +44,10 @@
         }
 
         nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0.8rem 1rem;
@@ -153,9 +157,17 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <ul class="nav-left">
                 <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
                 <li><a href="{% url 'questions_page' %}" class="nav-link">Questions</a></li>
+            </ul>
+            <ul class="nav-right">
+                {% if request.session.user_id %}
+                    <li><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+                    <li><a href="{% url 'register' %}" class="nav-link">Signup</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
