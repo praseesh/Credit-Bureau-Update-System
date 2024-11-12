@@ -252,14 +252,12 @@
     </footer>
 
     <script>
-        // Calculate and set the score percentage for the circular progress
         document.addEventListener('DOMContentLoaded', function() {
             const creditScore = parseInt('{{ credit_score }}');
-            const maxScore = 850; // Maximum possible credit score
+            const maxScore = 850;
             const percentage = (creditScore / maxScore) * 100;
             document.getElementById('scoreCircle').style.setProperty('--score-percentage', percentage);
 
-            // Add color based on score range
             const scoreCircle = document.querySelector('.score-circle');
             const scoreValue = document.querySelector('.score-value');
             
@@ -283,12 +281,11 @@
                 scoreValue.style.color = 'var(--google-red)';
             }
 
-            // Add animation to score display
             const scoreDisplay = document.querySelector('.score-value');
             const targetScore = creditScore;
             let currentScore = 0;
-            const duration = 1500; // Animation duration in milliseconds
-            const steps = 60; // Number of steps in animation
+            const duration = 1500; 
+            const steps = 60; 
             const increment = targetScore / steps;
             const stepDuration = duration / steps;
 

@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
         if not email:
@@ -40,10 +39,6 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ["mobile"]
 
     def save(self, *args, **kwargs):
-        # Hash password only if it's new or changed
-        # if not self.pk or 'password' in kwargs.get('update_fields', []):
-        #     print('the not hashed password',self.password)
-        #     self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
     def check_password(self, raw_password):
@@ -51,19 +46,6 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
-
-# class User(models.Model):
-#     name = models.CharField(max_length=255)
-#     email = models.EmailField(max_length=255, unique=True)
-#     mobile = models.CharField(max_length=15, unique=True)
-#     password = models.CharField(max_length=255) 
-
-#     def save(self, *args, **kwargs):       
-#         self.password = make_password(self.password)
-#         super().save(*args, **kwargs)
-
-#     def check_password(self, raw_password):
-#         return check_password(raw_password, self.password)
     
 class Question(models.Model):
     text = models.TextField() 

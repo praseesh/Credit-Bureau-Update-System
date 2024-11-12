@@ -71,7 +71,6 @@
             color: var(--google-blue);
         }
 
-        /* Main content area */
         main {
             flex: 1;
             max-width: 1200px;
@@ -114,7 +113,6 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        /* Footer styles */
         footer {
             background-color: var(--google-light-gray);
             padding: 1rem;
@@ -124,7 +122,6 @@
             margin-top: auto;
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             nav ul {
                 justify-content: center;
@@ -176,7 +173,6 @@
     </footer>
 
     <script>
-        // Add smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -186,7 +182,6 @@
             });
         });
 
-        // Add active state to navigation
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             if (link.href === window.location.href) {
@@ -195,7 +190,6 @@
             }
         });
 
-        // Add scroll shadow to header
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (window.scrollY > 0) {
@@ -205,7 +199,6 @@
             }
         });
 
-        // Add hover animation to start button
         const startButton = document.querySelector('.start-button');
         startButton.addEventListener('mouseenter', () => {
             startButton.style.transform = 'translateY(-1px)';

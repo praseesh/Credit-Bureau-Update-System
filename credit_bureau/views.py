@@ -14,21 +14,15 @@ def register_view(request):
         email = request.POST.get('email')
         mobile = request.POST.get('mobile')
         password = request.POST.get('password')
-
-        # Check for duplicate email or mobile
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email is already registered.")
             return redirect('register')
-
         if User.objects.filter(mobile=mobile).exists():
             messages.error(request, "Mobile number is already registered.")
             return redirect('register')
-
-        # Create the user
         user = User.objects.create_user(email=email, mobile=mobile, password=password)
         messages.success(request, "Registration successful. Please log in.")
         return redirect('login')
-
     return render(request, 'register.html')
 
 def login_view(request):
@@ -36,7 +30,6 @@ def login_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         try:
-            print(f"User_email:::{email}")
             user = User.objects.get(email=email)
             if user.check_password(password):
                 auth_login(request, user)  
@@ -55,7 +48,6 @@ def logout_view(request):
     request.session.flush() 
     messages.success(request, "Logged out successfully.")
     return redirect('login')
-
 
 def questions_page(request):
     user_id = request.session.get('user_id') 
