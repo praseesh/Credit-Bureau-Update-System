@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import Question, User, UserResponse
-from django.contrib.auth.decorators import login_required
 from .utils import calculate_credit_score
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
