@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Bureau Update System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Google-inspired colors and variables */
+        :root {
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc05;
+            --google-green: #34a853;
+            --google-gray: #5f6368;
+            --google-light-gray: #f8f9fa;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--google-gray);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--google-gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--google-light-gray);
+            color: var(--google-blue);
+        }
+
+        /* Main content area */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .welcome-section {
+            margin-top: 4rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            color: var(--google-gray);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .welcome-section p {
+            font-size: 1.1rem;
+            color: var(--google-gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .start-button {
+            display: inline-block;
+            background-color: var(--google-blue);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .start-button:hover {
+            background-color: #3367d6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: var(--google-light-gray);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--google-gray);
+            margin-top: auto;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav ul {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .welcome-section h1 {
+                font-size: 2rem;
+            }
+
+            .welcome-section p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .welcome-section h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'questions_page' %}" class="nav-link">Questions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="welcome-section">
+            <h1>Welcome to Credit Bureau Update System</h1>
+            <p>Update and manage your credit information with our easy-to-use system.</p>
+            <a href="{% url 'questions_page' %}" class="start-button">Get Started</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Credit Bureau Update System</p>
+    </footer>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active state to navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            if (link.href === window.location.href) {
+                link.style.color = 'var(--google-blue)';
+                link.style.backgroundColor = 'var(--google-light-gray)';
+            }
+        });
+
+        // Add scroll shadow to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 0) {
+                header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Add hover animation to start button
+        const startButton = document.querySelector('.start-button');
+        startButton.addEventListener('mouseenter', () => {
+            startButton.style.transform = 'translateY(-1px)';
+        });
+        startButton.addEventListener('mouseleave', () => {
+            startButton.style.transform = 'translateY(0)';
+        });
+    </script>
+</body>
+</html>

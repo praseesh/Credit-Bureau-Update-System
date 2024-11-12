@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Score Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --google-blue: #4285f4;
+            --google-red: #ea4335;
+            --google-yellow: #fbbc05;
+            --google-green: #34a853;
+            --google-gray: #5f6368;
+            --google-light-gray: #f8f9fa;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--google-gray);
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--google-gray);
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--google-light-gray);
+            color: var(--google-blue);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .results-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: var(--google-gray);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .score-display {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background: conic-gradient(
+                var(--google-blue) calc(var(--score-percentage) * 1%),
+                var(--google-light-gray) 0
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .score-inner {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .score-value {
+            font-size: 3rem;
+            font-weight: 500;
+            color: var(--google-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            color: var(--google-gray);
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: var(--google-blue);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-top: 2rem;
+        }
+
+        .back-button:hover {
+            background-color: #3367d6;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            transform: translateY(-1px);
+        }
+
+        footer {
+            background-color: var(--google-light-gray);
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .results-card {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .score-circle {
+                width: 160px;
+                height: 160px;
+            }
+
+            .score-inner {
+                width: 140px;
+                height: 140px;
+            }
+
+            .score-value {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .score-circle {
+                width: 140px;
+                height: 140px;
+            }
+
+            .score-inner {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'questions_page' %}">Questions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="results-card">
+            <h2>Your Credit Score</h2>
+            <div class="score-display">
+                <div class="score-circle" id="scoreCircle">
+                    <div class="score-inner">
+                        <div class="score-value">{{ credit_score }}</div>
+                        <div class="score-label">Credit Score</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'questions_page' %}" class="back-button">Back to Questions</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Credit Bureau Update System</p>
+    </footer>
+
+    <script>
+        // Calculate and set the score percentage for the circular progress
+        document.addEventListener('DOMContentLoaded', function() {
+            const creditScore = parseInt('{{ credit_score }}');
+            const maxScore = 850; // Maximum possible credit score
+            const percentage = (creditScore / maxScore) * 100;
+            document.getElementById('scoreCircle').style.setProperty('--score-percentage', percentage);
+
+            // Add color based on score range
+            const scoreCircle = document.querySelector('.score-circle');
+            const scoreValue = document.querySelector('.score-value');
+            
+            if (creditScore >= 720) {
+                scoreCircle.style.background = `conic-gradient(
+                    var(--google-green) ${percentage}%,
+                    var(--google-light-gray) 0
+                )`;
+                scoreValue.style.color = 'var(--google-green)';
+            } else if (creditScore >= 640) {
+                scoreCircle.style.background = `conic-gradient(
+                    var(--google-yellow) ${percentage}%,
+                    var(--google-light-gray) 0
+                )`;
+                scoreValue.style.color = 'var(--google-yellow)';
+            } else {
+                scoreCircle.style.background = `conic-gradient(
+                    var(--google-red) ${percentage}%,
+                    var(--google-light-gray) 0
+                )`;
+                scoreValue.style.color = 'var(--google-red)';
+            }
+
+            // Add animation to score display
+            const scoreDisplay = document.querySelector('.score-value');
+            const targetScore = creditScore;
+            let currentScore = 0;
+            const duration = 1500; // Animation duration in milliseconds
+            const steps = 60; // Number of steps in animation
+            const increment = targetScore / steps;
+            const stepDuration = duration / steps;
+
+            const animateScore = () => {
+                if (currentScore < targetScore) {
+                    currentScore = Math.min(currentScore + increment, targetScore);
+                    scoreDisplay.textContent = Math.round(currentScore);
+                    setTimeout(animateScore, stepDuration);
+                } else {
+                    scoreDisplay.textContent = targetScore;
+                }
+            };
+
+            animateScore();
+        });
+    </script>
+</body>
+</html>
